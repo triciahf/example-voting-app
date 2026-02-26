@@ -1,0 +1,21 @@
+FROM node:8.9-alpine
+WORKDIR /app
+
+ENV npm_config_unsafe_perm=true
+RUN npm set strict-ssl=false
+RUN npm config set proxy http://127.0.0.1:3128
+RUN npm config set https-proxy http://127.0.0.1:3128
+
+RUN npm install -g nodemon
+RUN npm config set registry https://registry.npmjs.org
+
+RUN npm install \
+    && npm ls \
+    && npm cache clean --force \
+    && mv /app/node_modules /node_modules
+
+EXPOSE 80
+CMD node server.js
+
+
+# docker build . -t result:v1 --network="host"

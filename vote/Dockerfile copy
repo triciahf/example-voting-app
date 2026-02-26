@@ -1,0 +1,10 @@
+FROM python:2.7-alpine
+
+COPY requirements.txt .
+WORKDIR /app
+RUN pip install -r requirements.txt
+
+EXPOSE 80
+
+CMD sh
+# docker build . -t vote:v1 --network="host"
