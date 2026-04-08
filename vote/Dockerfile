@@ -1,8 +1,8 @@
 FROM python:2.7-alpine
 
 WORKDIR /app
-COPY requirements.txt .
 COPY pip.conf /etc/pip.conf
+COPY . .
 RUN pip install -r requirements.txt
 
 EXPOSE 80

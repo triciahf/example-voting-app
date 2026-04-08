@@ -3,14 +3,14 @@ WORKDIR /app
 
 ENV npm_config_unsafe_perm=true
 RUN npm set strict-ssl=false
-RUN npm config set proxy http://127.0.0.1:3128
-RUN npm config set https-proxy http://127.0.0.1:3128
+#RUN npm config set proxy http://127.0.0.1:3128
+#RUN npm config set https-proxy http://127.0.0.1:3128
 
 RUN npm install -g nodemon
 RUN npm config set package-lock false
 RUN npm config set registry https://registry.npmjs.org
 
-COPY package.json .
+COPY . .
 RUN npm install \
     && npm ls \
     && npm cache clean --force \

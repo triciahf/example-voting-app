@@ -8,7 +8,7 @@
       <id>example-proxy</id>
       <active>true</active>
       <protocol>http</protocol>
-      <host>127.0.0.1</host>
+      <host>172.17.0.1</host>
       <port>3128</port>
       <nonProxyHosts>localhost|srv-abc|*.int</nonProxyHosts>
   </proxy>

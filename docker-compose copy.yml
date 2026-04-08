@@ -1,0 +1,48 @@
+version: '3.8'
+networks:
+  petclinic:
+    driver: bridge
+services:
+  result-app:
+    image: result:v1
+    build:
+      context: ./result/
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001
+    environment:
+      - SPRING_PROFILES_ACTIVE=mysql
+    networks:
+      - petclinic
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=petclinic
+      - MYSQL_PASSWORD=petclinic
+      - MYSQL_DATABASE=petclinic
+    networks:
+      - petclinic      
+
+  voting-app:
+    image: vote:v1
+    build:
+      context: ./vote/
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - petclinic
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    networks:
+      - petclinic
